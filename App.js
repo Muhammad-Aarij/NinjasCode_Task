@@ -1,10 +1,12 @@
 import React from 'react'
-import { View, Text } from 'react-native'
-
+import MainNavigation from './src/navigation/Navigation'
+import { Provider } from 'react-redux'
+import store from '../cc_patient_app/src/redux/store/Store'
 export default function App() {
+
   return (
-    <View>
-      <Text>Patient App</Text>
-    </View>
+    <Provider store={store}>
+      <MainNavigation />
+    </Provider>
   )
 }
