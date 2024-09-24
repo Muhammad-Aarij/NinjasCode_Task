@@ -14,11 +14,11 @@ export default function SignIn({ navigation }) {
     const [password, setPassword] = useState("");
 
 
-    const handleSignIn = () => {
+    const handleSignIn =async () => {
         if (username && password) {
             const user = { username, password };
             console.log("User")
-            AsyncStorage.setItem('userState', JSON.stringify(user));
+            await AsyncStorage.setItem('userState', JSON.stringify(user));
             dispatch(signIn(user));
         } else {
             alert("Please enter username and password");

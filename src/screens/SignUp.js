@@ -3,13 +3,32 @@ import { View, StyleSheet, TouchableOpacity } from 'react-native'
 import { Text } from 'react-native-paper';
 import { useTheme } from 'react-native-paper';
 import CustomTextInput from '../components/CustomTextInput';
-
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useDispatch } from 'react-redux';
+import { signIn } from '../redux/slice/AuthSlice';
 export default function SignUp({ navigation }) {
 
+    const dispatch = useDispatch();
     const theme = useTheme();
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
+
+    const handleSignUp = async () => {
+        if (password == confirmPassword) {
+            if (username && password) {
+                const user = { username, password };
+                console.log("User")
+                await AsyncStorage.setItem('userState', JSON.stringify(user));
+                dispatch(signIn(user));
+            } else {
+                alert("Please enter username and password");
+            }
+        }
+        else {
+            alert("Passwords do not match");
+        }
+    };
 
     return (
         <View style={styles.container}>
@@ -32,6 +51,11 @@ export default function SignUp({ navigation }) {
                 onChangeText={(confirmPassword) => setConfirmPassword(confirmPassword)}
                 placeholder="Confirm Password"
             />
+
+            <TouchableOpacity style={styles.btn} onPress={handleSignUp}>
+                <Text >Sign Up</Text>
+            </TouchableOpacity>
+
             <View style={{ marginTop: 20, flexDirection: "row", gap: 5 }}>
                 <Text style={styles.txt}>Already have an account?</Text>
                 <TouchableOpacity onPress={() => {
@@ -77,4 +101,13 @@ const styles = StyleSheet.create({
         color: 'white',
         marginBottom: 10,
     },
+    btn:{
+        width:150,
+        backgroundColor:"white",
+        padding:10,
+        borderRadius:5,
+        marginTop:15,
+        justifyContent:"center",
+        alignItems:"center",
+    }
 });
