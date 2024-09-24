@@ -1,7 +1,10 @@
 import React from 'react'
+import { View, Text } from 'react-native'
 
 export default function App() {
   return (
-    <div>App</div>
+    <View>
+      <Text>Patient App</Text>
+    </View>
   )
 }
