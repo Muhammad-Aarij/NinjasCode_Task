@@ -156,8 +156,8 @@ const MainNavigation = () => {
             <PaperProvider theme={paperTheme}>
                 <NavigationContainer>
                     {/* {isSignedIn ? <AuthenticatedNavigator /> : <UnauthenticatedNavigator />} */}
-                    {/* <AuthenticatedNavigator /> */}
-                    <Slider />
+                    <AuthenticatedNavigator />
+                    {/* <Slider /> */}
                     <Toast />
                 </NavigationContainer>
             </PaperProvider>

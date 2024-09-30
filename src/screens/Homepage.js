@@ -9,6 +9,7 @@ import RecommendedTile from '../components/RecommendedTile';
 import TopProductTile from '../components/TopProductTile';
 import { useDispatch, useSelector } from 'react-redux';
 import { fetchFoods } from '../redux/slice/foodSlice';
+import Slider from './Slider';
 // import { addToCart } from './cartSlice';
 
 export default function Homepage({ navigation }) {
@@ -29,7 +30,7 @@ export default function Homepage({ navigation }) {
         <ScrollView style={styles.container}>
             <View style={styles.header}>
                 <View style={styles.headerLeft}>
-                    <Text style={styles.headerTitle}>
+                    <Text style={{...styles.headerTitle,fontSize:25,}}>
                         Good Morning
                     </Text>
                     <Text style={{ ...styles.headerTitle, fontFamily: "sans-serif-black", fontSize: 24, }}>
@@ -46,7 +47,8 @@ export default function Homepage({ navigation }) {
                     Islamabad , Pakistan
                 </Text>
             </View>
-            <View style={{ ...styles.loacation, marginVertical: 10, }}>
+            <Slider />
+            <View style={{ ...styles.loacation, marginBottom: 5, }}>
                 <ScrollView horizontal={true}
                     showsHorizontalScrollIndicator={false}
                     style={{ width: "100%", marginTop: 5, }}>
@@ -97,7 +99,7 @@ export default function Homepage({ navigation }) {
                     SHOW ALL
                 </Text>
             </View>
-            <View style={{ width: "100%", paddingBottom: 5, height: 120 }}>
+            <View style={{ width: "100%", marginBottom: 20, height: 120 }}>
 
                 {isLoading !== true && popular.length > 0 && (
                     <ScrollView horizontal={true} style={{
@@ -132,10 +134,10 @@ const styles = StyleSheet.create({
         // alignItems: 'center',
         flexDirection: "row",
         marginBottom: 15,
-        backgroundColor:"#f2f3f5",
+        backgroundColor: "#f2f3f5",
     },
     headerTitle: {
-        fontSize: 20,
+        fontSize: 18,
         fontWeight: "400",
         color: "black",
         fontFamily: "sans-serif-condensed",
