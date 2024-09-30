@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
         height: "100%",
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: "#008080",
+        backgroundColor: "#ff844b",
 
     },
     innercontainer: {

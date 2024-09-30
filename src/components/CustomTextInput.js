@@ -7,7 +7,7 @@ const CustomTextInput = ({ value, onChangeText, placeholder, label }) => {
     const theme = useTheme();
     return (
         <View style={styles.container}>
-            {label && <Text style={{...styles.label,color:theme.colors.background}}>{label}</Text>}
+            {label && <Text style={{...styles.label}}>{label}</Text>}
             <TextInput
                 style={styles.input}
                 value={value}
@@ -26,7 +26,7 @@ const styles = StyleSheet.create({
     label: {
         fontSize: 16,
         marginBottom: 5,
-        color: '#333',
+        color: 'white',
     },
     input: {
         height: 55,
