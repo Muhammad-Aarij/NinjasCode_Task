@@ -1,16 +1,31 @@
 import React from 'react'
-import { StyleSheet, TouchableOpacity, View, Text, Image } from 'react-native'
-import banana from '../assets/images/banana.png'
+import { StyleSheet, TouchableOpacity, View, Text, Image, Pressable } from 'react-native'
+import { Linking } from 'react-native';
 import { useTheme } from 'react-native-paper'
-// import cherry from '../assets/images/cherry.jpg'
-import cherry from '../assets/images/burger.png'
 
 export default function TopProductTile({ navigation, food }) {
+
+    const urlCategory = "mychat://chat/category";
     const theme = useTheme();
     return (
-        <View style={{ ...styles.container }}>
+        <Pressable
+            style={{ ...styles.container }}
+            onPress={async () => {
+                try {
+                    console.log("clicked");
+                    console.log('====================================');
+                    const supported = await Linking.canOpenURL("mychat://chat/category");
+                    if (supported) {
+                        await Linking.openURL(urlCategory);
+                    } else {
+                        console.log("Can't handle URL: " + urlCategory);
+                    }
+                } catch (error) {
+                    console.error('Error opening URL:', error);
+                }
+            }}>
             <View style={styles.Top}>
-                <Image style={styles.img} source={{uri:food.images}} />
+                <Image style={styles.img} source={{ uri: food.images }} />
             </View>
             <View style={styles.Bottom}>
                 <View style={styles.BottomLeft}>
@@ -25,7 +40,7 @@ export default function TopProductTile({ navigation, food }) {
 
                 </View>
             </View>
-        </View>
+        </Pressable>
     )
 }
 
@@ -46,15 +61,15 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         height: "60%",
-        width:"100%",
+        width: "100%",
         // borderWidth: 2,
         overflow: "hidden",
     },
 
     img: {
-        width: "100%", 
+        width: "100%",
         height: "100%",
-        resizeMode: 'contain', 
+        resizeMode: 'contain',
     },
     BottomRight: {
         width: "20%",

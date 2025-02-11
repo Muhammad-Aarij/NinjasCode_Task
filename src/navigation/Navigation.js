@@ -19,8 +19,9 @@ import { signOut } from '../redux/slice/AuthSlice';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import Icon from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
-import Toast from 'react-native-toast-message'; // Import the toast component
+import Toast from 'react-native-toast-message';
 import Slider from '../screens/Slider';
+import linking from './Linking';
 
 const AuthStack = createNativeStackNavigator();
 const AppStack = createNativeStackNavigator();
@@ -154,7 +155,7 @@ const MainNavigation = () => {
     return (
         <Provider store={store}>
             <PaperProvider theme={paperTheme}>
-                <NavigationContainer>
+                <NavigationContainer linking={linking}>
                     {/* {isSignedIn ? <AuthenticatedNavigator /> : <UnauthenticatedNavigator />} */}
                     <AuthenticatedNavigator />
                     {/* <Slider /> */}

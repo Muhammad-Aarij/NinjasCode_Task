@@ -34,7 +34,7 @@ export default function Homepage({ navigation }) {
                         Good Morning
                     </Text>
                     <Text style={{ ...styles.headerTitle, fontFamily: "sans-serif-black", fontSize: 24, }}>
-                        Ghazi
+                        Alexander
                     </Text>
                 </View>
                 <View style={styles.headerRight}>
