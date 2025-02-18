@@ -1,4 +1,3 @@
-// AppNavigator.js
 import React from 'react';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
@@ -15,7 +14,7 @@ const Tab = createBottomTabNavigator();
 const SearchStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Search"
+      name="SearchScreen"
       component={SearchScreen}
       options={{ headerShown: false }}
     />
@@ -30,7 +29,7 @@ const SearchStack = () => (
 const FavoritesStack = () => (
   <Stack.Navigator>
     <Stack.Screen
-      name="Favorites"
+      name="FavoritesScreen"
       component={FavoritesScreen}
       options={{ headerShown: false }}
     />
@@ -38,7 +37,6 @@ const FavoritesStack = () => (
       name="WeatherDetail"
       component={WeatherDetailScreen}
       options={{ headerShown: false }}
-      
     />
   </Stack.Navigator>
 );
@@ -68,6 +66,7 @@ const AppNavigator = () => {
           options={{ headerShown: false }}
         />
         <Tab.Screen name="Favorites" component={FavoritesStack}
+          options={{ headerShown: false }}
         />
       </Tab.Navigator>
     </NavigationContainer>

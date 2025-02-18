@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { searchCity } from '../redux/slice/weatherSlice';
 import ThemeContext from '../theme/ThemeContext';
 import WeatherDetailScreen from './WeatherDetailScreen';
-import { getCurrentCity } from '../utils/locationUtils'; // Import the utility function
+import { getCurrentCity } from '../functions/getCurrentCity'; 
 
 const HomeScreen = () => {
   const { theme } = useContext(ThemeContext);

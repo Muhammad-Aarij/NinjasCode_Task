@@ -9,7 +9,7 @@ export const ThemeProvider = ({ children }) => {
 
   useEffect(() => {
     const currentHour = new Date().getHours();
-    const initialTheme = (currentHour >= 6 && currentHour < 18) ? lightTheme : darkTheme;
+    const initialTheme = (currentHour >= 6 && currentHour < 12) ? lightTheme : darkTheme;
     setTheme(initialTheme);
   }, []);
 

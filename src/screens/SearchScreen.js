@@ -1,6 +1,6 @@
 import React, { useContext, useEffect, useState, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { Text, TextInput, View, TouchableOpacity, StyleSheet, ImageBackground } from 'react-native';
+import { Text, TextInput, View, TouchableOpacity, StyleSheet, ImageBackground, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import ThemeContext from '../theme/ThemeContext';
 import CityTile from '../components/CityTile';
@@ -52,6 +52,8 @@ const SearchScreen = ({ navigation }) => {
       const city = searchedCity[0];
       setSavedCity([city]);
       storeCityInAsync(city);
+    } else if (searchQuery.trim()) {
+      Alert.alert('City Not Found', `No cities found with the name "${searchQuery}"`, [{ text: 'OK' }]);
     }
   }, [searchedCity]);
 
@@ -71,34 +73,34 @@ const SearchScreen = ({ navigation }) => {
       <View style={[styles.container, { backgroundColor: theme.backgroundColor }]}>
         <TouchableOpacity onPress={toggleTheme}>
           <Text style={[styles.toggleText, { color: theme.textColor }]}>
-            Toggle to {theme.backgroundColor === '#FFFFFF' ? 'Night' : 'Day'} Mode
+            Search Here
           </Text>
         </TouchableOpacity>
-        <TextInput 
-          placeholder="Enter city name" 
-          value={searchQuery} 
-          onChangeText={handleChangeText} 
-          style={[styles.input, { backgroundColor: theme.backgroundColor, color: theme.textColor, borderColor: theme.borderColor }]}
+        <TextInput
+          placeholder="Enter city name"
+          value={searchQuery}
+          onChangeText={handleChangeText}
+          style={[styles.input, { color: "gray" }]}
         />
         {searchedCity.length > 0 ? (
           searchedCity.map(city => (
-            <CityTile 
+            <CityTile
               key={city.city}
-              city={city.city} 
-              temperature={city.temperature} 
-              weather={city.weather} 
-              onPress={() => navigation.navigate('WeatherDetail', { city })} 
+              city={city.city}
+              temperature={city.temperature}
+              weather={city.weather}
+              onPress={() => navigation.navigate('WeatherDetail', { city })}
               style={[styles.cityTile, { backgroundColor: theme.backgroundColor, color: theme.textColor, borderColor: theme.borderColor }]}
             />
           ))
         ) : savedCity.length > 0 ? (
           savedCity.map(city => (
-            <CityTile 
+            <CityTile
               key={city.city}
-              city={city.city} 
-              temperature={city.temperature} 
-              weather={city.weather} 
-              onPress={() => navigation.navigate('WeatherDetail', { city })} 
+              city={city.city}
+              temperature={city.temperature}
+              weather={city.weather}
+              onPress={() => navigation.navigate('WeatherDetail', { city })}
               style={[styles.cityTile, { backgroundColor: theme.backgroundColor, color: theme.textColor, borderColor: theme.borderColor }]}
             />
           ))
@@ -121,10 +123,13 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(255, 255, 255, 0.2)' // Optional: Add a semi-transparent overlay for readability
   },
   toggleText: {
-    fontSize: 18,
+    marginTop: 16,
+    fontWeight: "bold",
+    fontSize: 24,
     marginBottom: 16
   },
   input: {
+    backgroundColor: "white",
     padding: 8,
     borderRadius: 4,
     borderWidth: 1,
