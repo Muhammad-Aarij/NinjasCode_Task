@@ -65,8 +65,6 @@ const SearchScreen = ({ navigation }) => {
     }
   };
 
-  // if (loading) return <Text>Loading...</Text>;
-  // if (error) return <Text>Error: {error}</Text>;
 
   return (
     <ImageBackground source={theme.backgroundImage} style={styles.backgroundImage}>
@@ -120,7 +118,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: 'rgba(255, 255, 255, 0.2)' // Optional: Add a semi-transparent overlay for readability
+    backgroundColor: 'rgba(255, 255, 255, 0.2)' 
   },
   toggleText: {
     marginTop: 16,
