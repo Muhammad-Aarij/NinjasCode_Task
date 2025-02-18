@@ -1,15 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import authReducer from '../slice/AuthSlice';
-import foodReducer from '../slice/foodSlice';
-import cartReducer from '../slice/cartSlice';
+import weatherReducer from '../slice/weatherSlice';
 
-const store = configureStore({
+export const store = configureStore({
   reducer: {
-    auth: authReducer,
-    foods: foodReducer,
-    cart: cartReducer,
+    weather: weatherReducer,
   },
 });
-
-export default store;
- 
