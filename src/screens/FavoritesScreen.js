@@ -25,7 +25,7 @@ const FavoritesScreen = ({ navigation }) => {
               city={item.city} 
               temperature={item.temperature} 
               weather={item.weather} 
-              isFavorite={true} // Ensuring the favorite status is displayed correctly
+              isFavorite={true} 
               onPress={() => navigation.navigate('WeatherDetail', { city: item })} 
               style={[styles.cityTile, { backgroundColor: theme.backgroundColor, color: theme.textColor, borderColor: theme.borderColor }]}
             />

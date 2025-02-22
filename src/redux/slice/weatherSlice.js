@@ -1,9 +1,7 @@
-// weatherSlice.js - Weather Slice
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-// Fetch all cities from the API
 export const fetchCities = createAsyncThunk('weather/fetchCities', async () => {
   try {
     const response = await axios.get('http://192.168.100.106:5000/cities');
@@ -23,7 +21,6 @@ export const fetchCities = createAsyncThunk('weather/fetchCities', async () => {
   }
 });
 
-// Fetch favorites from AsyncStorage
 export const fetchFavorites = createAsyncThunk('weather/fetchFavorites', async () => {
   try {
     const favorites = await AsyncStorage.getItem('favorites');
@@ -34,7 +31,6 @@ export const fetchFavorites = createAsyncThunk('weather/fetchFavorites', async (
   }
 });
 
-// Add favorite city to AsyncStorage
 export const addFavoriteAsync = createAsyncThunk('weather/addFavoriteAsync', async (city) => {
   try {
     const favorites = await AsyncStorage.getItem('favorites');
@@ -48,7 +44,6 @@ export const addFavoriteAsync = createAsyncThunk('weather/addFavoriteAsync', asy
   }
 });
 
-// Remove favorite city from AsyncStorage
 export const removeFavoriteAsync = createAsyncThunk('weather/removeFavoriteAsync', async (city) => {
   try {
     const favorites = await AsyncStorage.getItem('favorites');
@@ -86,32 +81,31 @@ const weatherSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      // Handling fetchCities
-      .addCase(fetchCities.pending, (state) => {
+
+    .addCase(fetchCities.pending, (state) => {
         state.loading = true;
       })
       .addCase(fetchCities.fulfilled, (state, action) => {
         state.loading = false;
-        state.cities = action.payload; // Store cities data
+        state.cities = action.payload; 
       })
       .addCase(fetchCities.rejected, (state, action) => {
         state.loading = false;
-        state.error = action.error.message; // Handle error if any
+        state.error = action.error.message; 
       })
-      // Handling fetchFavorites
       .addCase(fetchFavorites.fulfilled, (state, action) => {
-        state.favorites = action.payload; // Store favorite cities
+        state.favorites = action.payload; 
       })
-      // Handling addFavoriteAsync
+      
       .addCase(addFavoriteAsync.fulfilled, (state, action) => {
-        state.favorites.push(action.payload); // Add favorite city
+        state.favorites.push(action.payload); 
         state.cities = state.cities.map(city =>
           city.city === action.payload.city ? { ...city, isFavorite: true } : city
         );
       })
-      // Handling removeFavoriteAsync
+
       .addCase(removeFavoriteAsync.fulfilled, (state, action) => {
-        state.favorites = state.favorites.filter(city => city.city !== action.payload.city); // Remove favorite city
+        state.favorites = state.favorites.filter(city => city.city !== action.payload.city); 
         state.cities = state.cities.map(city =>
           city.city === action.payload.city ? { ...city, isFavorite: false } : city
         );

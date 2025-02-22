@@ -1,4 +1,3 @@
-// locationUtils.js
 import Geolocation from '@react-native-community/geolocation';
 import axios from 'axios';
 import { requestLocationPermission } from '../utils/permissionsUtils';

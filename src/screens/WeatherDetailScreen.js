@@ -1,5 +1,5 @@
-import React, { useContext } from 'react';
-import { View, Text, Image, StyleSheet, ImageBackground } from 'react-native';
+import React, { useState, useContext } from 'react';
+import { View, Text, Image, StyleSheet, ImageBackground, Button } from 'react-native';
 import ThemeContext from '../theme/ThemeContext'; 
 import humidityimg from '../assets/images/humidity.png';
 import windimg from '../assets/images/wind.png';
@@ -11,13 +11,26 @@ const WeatherDetailScreen = ({ route }) => {
     Cloudy: require('../assets/images/cloudy.png'),
     Rainy: require('../assets/images/rain.png'),
   };
-  const { city, temperature, weather, humidity, windSpeed } = route.params.city;
+  const [temperature, setTemperature] = useState(route.params.city.temperature || 0);
+  const [isCelsius, setIsCelsius] = useState(true);
+  const { city, weather, humidity, windSpeed } = route.params.city;
+
+  const convertTemperature = () => {
+    if (isCelsius) {
+      setTemperature((temperature * 9/5) + 32); // Convert to Fahrenheit
+    } else {
+      setTemperature((temperature - 32) * 5/9); // Convert to Celsius
+    }
+    setIsCelsius(!isCelsius);
+  };
 
   return (
     <ImageBackground source={theme.backgroundImage} style={styles.backgroundImage}>
       <View style={styles.glassContainer}>
         <Text style={[styles.cityText, { color: theme.textColor }]}>{city}</Text>
-        <Text style={[styles.temperatureText, { color: theme.textColor }]}>{temperature}°C</Text>
+        <Text style={[styles.temperatureText, { color: theme.textColor }]}>
+          {isCelsius ? `${temperature.toFixed(0)}°C` : `${temperature.toFixed(0)}°F`}
+        </Text>
         <Text style={[styles.detailText, { color: theme.textColor }]}>{weather}</Text>
         <Image source={weatherIcons[weather]} style={styles.weatherIcon} />
         <View style={styles.detailsRow}>
@@ -30,10 +43,12 @@ const WeatherDetailScreen = ({ route }) => {
             <Text style={[styles.detailText, { color: theme.textColor }]}>{windSpeed} km/h</Text>
           </View>
         </View>
+        <Button style={styles.tempBtn} title={`${isCelsius ? 'F' : 'C'}`} onPress={convertTemperature} />
       </View>
     </ImageBackground>
   );
 };
+
 
 const styles = StyleSheet.create({
   backgroundImage: {
@@ -45,9 +60,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 20,
-    backgroundColor: 'rgba(255, 255, 255, 0.1)', // Light overlay for glassmorphism effect
+    backgroundColor: 'rgba(255, 255, 255, 0.1)', 
     borderColor: 'rgba(255, 255, 255, 0.3)',
-    backdropFilter: 'blur(20px)', // Requires react-native-web
+    backdropFilter: 'blur(20px)',
+    position:"relative",
+  },
+  tempBtn:{
+    marginTop:10,
   },
   cityText: {
     fontSize: 25,
@@ -65,7 +84,6 @@ const styles = StyleSheet.create({
   },
   detailText: {
     fontSize: 18,
-    // marginVertical: 5,
   },
   detailsRow: {
     flexDirection: "row",
@@ -83,7 +101,6 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 10 },
     shadowOpacity: 0.3,
     shadowRadius: 10,
-    // elevation: 5,
   },
   detailIcon: {
     width: 50,
@@ -91,5 +108,6 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   }
 });
+
 
 export default WeatherDetailScreen;
